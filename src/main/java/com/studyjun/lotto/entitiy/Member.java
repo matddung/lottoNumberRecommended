@@ -1,6 +1,7 @@
 package com.studyjun.lotto.entitiy;
 
 import com.studyjun.lotto.common.MemberType;
+import com.studyjun.lotto.dto.member.request.MemberUpdateRequest;
 import com.studyjun.lotto.dto.signUp.request.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.*;
@@ -56,5 +57,14 @@ public class Member {
                 .email(request.email())
                 .phoneNumber(request.phoneNumber())
                 .build();
+    }
+
+    public void update(MemberUpdateRequest newMember, PasswordEncoder encoder) {
+        this.password = newMember.newPassword() == null || newMember.newPassword().isBlank()
+                ? this.password : encoder.encode(newMember.newPassword());
+        this.name = newMember.name();
+        this.birth = newMember.birth();
+        this.email = newMember.email();
+        this.phoneNumber = newMember.phoneNumber();
     }
 }
