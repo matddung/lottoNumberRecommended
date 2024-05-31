@@ -1,3 +1,16 @@
+@relation lottoInfo
+
+@attribute round numeric
+@attribute num1 numeric
+@attribute num2 numeric
+@attribute num3 numeric
+@attribute num4 numeric
+@attribute num5 numeric
+@attribute num6 numeric
+@attribute bonusNum numeric
+@attribute winningDate numeric
+
+@data
 1121,6,24,31,32,38,44,8,20240525
 1120,2,19,26,31,38,41,34,20240518
 1119,1,9,12,13,20,45,3,20240511

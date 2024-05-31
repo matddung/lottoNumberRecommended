@@ -34,7 +34,7 @@ public class CsvLoader implements CommandLineRunner {
             lottoNum.setNum5(Integer.parseInt(data[5]));
             lottoNum.setNum6(Integer.parseInt(data[6]));
             lottoNum.setBonusNum(Integer.parseInt(data[7]));
-            lottoNum.setFirstPlaceNumber(Integer.parseInt(data[8]));
+            lottoNum.setWinningDate(data[8]);
             lottoNumRepository.save(lottoNum);
         }
     }

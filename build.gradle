@@ -47,6 +47,9 @@ dependencies {
 
 	// csv
 	implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.8'
+
+	// weka
+	implementation group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: '3.8.6'
 }
 
 tasks.named('test') {

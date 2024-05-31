@@ -22,5 +22,5 @@ public class LottoNum {
     private int num5;
     private int num6;
     private int bonusNum;
-    private int firstPlaceNumber;
+    private String winningDate;
 }
