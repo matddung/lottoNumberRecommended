@@ -1,4 +1,4 @@
-package com.studyjun.lotto.jwt;
+package com.studyjun.lotto.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -27,6 +27,7 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
 
+    // HTTP 요청을 필터링하고, JWT를 기반으로 사용자를 인증
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -44,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    // HTTP 요청에서 주어진 헤더 이름을 기반으로 Bearer 토큰을 추출
     private String parseBearerToken(HttpServletRequest request, String headerName) {
         return Optional.ofNullable(request.getHeader(headerName))
                 .filter(token -> token.substring(0, 7).equalsIgnoreCase("Bearer "))
@@ -51,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .orElse(null);
     }
 
+    // 주어진 JWT에서 사용자 정보를 추출
     private User parseUserSpecification(String token) {
         String[] split = Optional.ofNullable(token)
                 .filter(subject -> subject.length() >= 10)
@@ -61,6 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return new User(split[0], "", List.of(new SimpleGrantedAuthority(split[1])));
     }
 
+    // 만료된 액세스 토큰을 기반으로 새로운 액세스 토큰을 재발급
     private void reissueAccessToken(HttpServletRequest request, HttpServletResponse response, Exception exception) {
         try {
             String refreshToken = parseBearerToken(request, "Refresh-Token");

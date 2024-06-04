@@ -1,4 +1,4 @@
-package com.studyjun.lotto.config;
+package com.studyjun.lotto.util;
 
 import com.studyjun.lotto.entitiy.LottoNum;
 import com.studyjun.lotto.repository.LottoNumRepository;

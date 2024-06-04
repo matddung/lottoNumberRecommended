@@ -6,7 +6,7 @@ import com.studyjun.lotto.dto.signUp.request.SignUpRequest;
 import com.studyjun.lotto.dto.signUp.response.SignUpResponse;
 import com.studyjun.lotto.entitiy.Member;
 import com.studyjun.lotto.entitiy.MemberRefreshToken;
-import com.studyjun.lotto.jwt.TokenProvider;
+import com.studyjun.lotto.security.TokenProvider;
 import com.studyjun.lotto.repository.MemberRefreshTokenRepository;
 import com.studyjun.lotto.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +46,6 @@ public class CommonService {
                         it -> it.updateRefreshToken(refreshToken),
                         () -> memberRefreshTokenRepository.save(new MemberRefreshToken(member, refreshToken))
                 );
-        return new SignInResponse(member.getName(), member.getType(), accessToken, refreshToken);
+        return new SignInResponse(member.getNickname(), member.getType(), accessToken, refreshToken);
     }
 }

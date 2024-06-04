@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 
@@ -41,5 +38,15 @@ public class CommonController {
     @PostMapping("/findPassword")
     public ApiResponse findPassword(@RequestBody FindPasswordRequest request) throws MessagingException, UnsupportedEncodingException {
         return ApiResponse.success(emailService.sendTempPasswordMail(request));
+    }
+
+    @GetMapping("/oauth2/loginSuccess")
+    public String loginSuccess() {
+        return "Login Successful!";
+    }
+
+    @GetMapping("/oauth2/loginFailure")
+    public String loginFailure() {
+        return "Login Failed!";
     }
 }

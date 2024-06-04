@@ -11,7 +11,7 @@ public record SignUpResponse(
         @Schema(description = "회원 아이디", example = "studyjun")
         String account,
         @Schema(description = "회원 이름", example = "윤준혁")
-        String name,
+        String nickname,
         @Schema(description = "생년월일", example = "1996-06-04")
         String birth,
         @Schema(description = "이메일", example = "email@email.com")
@@ -23,7 +23,7 @@ public record SignUpResponse(
         return new SignUpResponse(
                 member.getId(),
                 member.getAccount(),
-                member.getName(),
+                member.getNickname(),
                 member.getBirth(),
                 member.getEmail(),
                 member.getPhoneNumber()

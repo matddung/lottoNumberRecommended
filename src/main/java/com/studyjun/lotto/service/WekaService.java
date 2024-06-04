@@ -31,7 +31,7 @@ public class WekaService {
         neuralNetwork.setHiddenLayers("5");
         neuralNetwork.setLearningRate(0.1);
         neuralNetwork.setMomentum(0.2);
-        neuralNetwork.setTrainingTime(100000);
+        neuralNetwork.setTrainingTime(1);
         neuralNetwork.buildClassifier(data);
 
         random = new Random();
@@ -39,16 +39,16 @@ public class WekaService {
 
     public PredictNumbersRegressionResponse predictNumbersRegression(String date) throws Exception {
         List<Integer> numbers = predictNumbers(regression, date);
-        return new PredictNumbersRegressionResponse(true, numbers);
+        return new PredictNumbersRegressionResponse(numbers);
     }
 
     public PredictNumbersNeuralNetworkResponse predictNumbersNeuralNetwork(String date) throws Exception {
         List<Integer> numbers = predictNumbers(neuralNetwork, date);
-        return new PredictNumbersNeuralNetworkResponse(true, numbers);
+        return new PredictNumbersNeuralNetworkResponse(numbers);
     }
 
     private List<Integer> predictNumbers(weka.classifiers.Classifier classifier, String date) throws Exception {
-        int numberOfPredictions = 100000;
+        int numberOfPredictions = 1;
         Map<Integer, Integer> frequencyMap = new HashMap<>();
 
         for (int i = 0; i < numberOfPredictions; i++) {

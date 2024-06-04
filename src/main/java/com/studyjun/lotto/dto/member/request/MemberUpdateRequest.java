@@ -8,7 +8,7 @@ public record MemberUpdateRequest(
         @Schema(description = "회원 새 비밀번호", example = "12345")
         String newPassword,
         @Schema(description = "회원 이름", example = "윤준혁")
-        String name,
+        String nickname,
         @Schema(description = "생년월일", example = "1996-06-04")
         String birth,
         @Schema(description = "이메일", example = "email@email.com")

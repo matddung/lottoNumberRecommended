@@ -1,17 +1,19 @@
 package com.studyjun.lotto.entitiy;
 
 import com.studyjun.lotto.common.MemberType;
+import com.studyjun.lotto.common.SocialType;
 import com.studyjun.lotto.dto.member.request.MemberUpdateRequest;
 import com.studyjun.lotto.dto.signUp.request.SignUpRequest;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Entity
 @Setter
@@ -23,37 +25,39 @@ public class Member {
     private String account;
     @Column(nullable = false)
     private String password;
-    private String name;
+    private String nickname;
     private String birth;
     @Enumerated(EnumType.STRING)
     private MemberType type;
-    @CreationTimestamp
-    private LocalDate createdAt;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
+    private String socialId;
+
     @Builder
-    private Member(String account, String password, String name, String birth, MemberType type, LocalDate createdAt, String email, String phoneNumber) {
+    private Member(String account, String password, String nickname, String birth, MemberType type, String email, String phoneNumber, SocialType socialType, String socialId) {
         this.account = account;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
         this.birth = birth;
         this.type = type;
-        this.createdAt = createdAt;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.socialType = socialType;
+        this.socialId = socialId;
     }
 
     public static Member from(SignUpRequest request, PasswordEncoder encoder) {
         return Member.builder()
                 .account(request.account())
                 .password(encoder.encode(request.password()))
-                .name(request.name())
+                .nickname(request.nickname())
                 .birth(request.birth())
                 .type(MemberType.USER)
-                .createdAt(LocalDate.now())
                 .email(request.email())
                 .phoneNumber(request.phoneNumber())
                 .build();
@@ -62,7 +66,7 @@ public class Member {
     public void update(MemberUpdateRequest newMember, PasswordEncoder encoder) {
         this.password = newMember.newPassword() == null || newMember.newPassword().isBlank()
                 ? this.password : encoder.encode(newMember.newPassword());
-        this.name = newMember.name();
+        this.nickname = newMember.nickname();
         this.birth = newMember.birth();
         this.email = newMember.email();
         this.phoneNumber = newMember.phoneNumber();
