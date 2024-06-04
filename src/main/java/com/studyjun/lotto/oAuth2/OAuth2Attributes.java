@@ -1,9 +1,10 @@
-package com.studyjun.lotto;
+package com.studyjun.lotto.oAuth2;
 
 import com.studyjun.lotto.common.MemberType;
 import com.studyjun.lotto.common.SocialType;
 import com.studyjun.lotto.entitiy.Member;
-import com.studyjun.lotto.entitiy.oauth2.*;
+import com.studyjun.lotto.entitiy.entity.*;
+import com.studyjun.lotto.oAuth2.entity.*;
 import lombok.Builder;
 import lombok.Getter;
 

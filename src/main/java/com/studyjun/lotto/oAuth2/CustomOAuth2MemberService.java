@@ -1,4 +1,4 @@
-package com.studyjun.lotto;
+package com.studyjun.lotto.oAuth2;
 
 import com.studyjun.lotto.common.SocialType;
 import com.studyjun.lotto.entitiy.Member;

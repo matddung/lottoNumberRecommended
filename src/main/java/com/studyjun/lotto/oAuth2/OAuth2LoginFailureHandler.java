@@ -1,4 +1,4 @@
-package com.studyjun.lotto;
+package com.studyjun.lotto.oAuth2;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

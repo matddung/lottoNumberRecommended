@@ -1,4 +1,4 @@
-package com.studyjun.lotto.entitiy.oauth2;
+package com.studyjun.lotto.oAuth2.entity;
 
 import java.util.Map;
 

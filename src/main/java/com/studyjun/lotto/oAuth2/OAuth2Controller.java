@@ -1,5 +1,6 @@
-package com.studyjun.lotto;
+package com.studyjun.lotto.oAuth2;
 
+import com.studyjun.lotto.oAuth2.CustomOAuth2MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
