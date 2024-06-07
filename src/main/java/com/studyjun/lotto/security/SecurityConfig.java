@@ -1,8 +1,8 @@
 package com.studyjun.lotto.security;
 
-import com.studyjun.lotto.oAuth2.CustomOAuth2MemberService;
-import com.studyjun.lotto.oAuth2.OAuth2LoginFailureHandler;
-import com.studyjun.lotto.oAuth2.OAuth2LoginSuccessHandler;
+import com.studyjun.lotto.service.CustomOAuth2MemberService;
+import com.studyjun.lotto.util.OAuth2LoginFailureHandler;
+import com.studyjun.lotto.util.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
