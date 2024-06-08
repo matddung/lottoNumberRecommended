@@ -1,15 +1,59 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Signup({ register }) {
-    const [email, setEmail] = useState('');
+    const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [birth, setBirth] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // 여기에 회원가입 로직을 추가합니다.
-        // 예를 들어, 서버에 데이터를 보내는 API 호출 등을 할 수 있습니다.
-        register();
+        
+        // 비밀번호 확인 검사
+        if (password !== confirmPassword) {
+            setError('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        // 생년월일 검사 (년도만 확인)
+        const today = new Date();
+        const birthYear = new Date(birth).getFullYear();
+        const currentYear = today.getFullYear();
+        const age = currentYear - birthYear;
+
+        if (age < 19) {
+            setError('만 19세 이상만 회원가입이 가능합니다.');
+            return;
+        }
+
+        const SignUpRequest = {
+            account,
+            password,
+            nickname,
+            birth,
+            email,
+            phoneNumber,
+        };
+
+        try {
+            // 서버에 회원가입 데이터 전송
+            const response = await axios.post('/signUp', SignUpRequest);
+            if (response.status === 200) {
+                // 회원가입 성공 시 처리 로직
+                register();
+            } else {
+                // 회원가입 실패 시 처리 로직
+                setError('회원가입에 실패했습니다. 다시 시도해주세요.');
+            }
+        } catch (error) {
+            // 에러 처리 로직
+            setError('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
     };
 
     return (
@@ -17,12 +61,53 @@ function Signup({ register }) {
             <form onSubmit={handleSubmit} className="signup-form">
                 <h2>회원가입</h2>
                 <div className="form-group">
-                    <label htmlFor="name">이름:</label>
+                    <label htmlFor="account">아이디:</label>
                     <input
                         type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        id="account"
+                        value={account}
+                        onChange={(e) => setAccount(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">비밀번호:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">비밀번호 확인:</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="nickname">닉네임:</label>
+                    <input
+                        type="text"
+                        id="nickname"
+                        value={nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                        required
+                    />
+                </div>
+                {error && <p className="error"><span className="error-icon">⚠️</span> {error}</p>}
+                <div className="form-group">
+                    <label htmlFor="birth">생년월일:</label>
+                    <input
+                        type="date"
+                        id="birth"
+                        value={birth}
+                        onChange={(e) => setBirth(e.target.value)}
                         required
                     />
                 </div>
@@ -37,12 +122,12 @@ function Signup({ register }) {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">비밀번호:</label>
+                    <label htmlFor="phoneNumber">전화번호:</label>
                     <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        type="tel"
+                        id="phoneNumber"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                         required
                     />
                 </div>

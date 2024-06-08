@@ -60,6 +60,8 @@ public class Member {
                 .type(MemberType.USER)
                 .email(request.email())
                 .phoneNumber(request.phoneNumber())
+                .socialId("NONE")
+                .socialType(SocialType.NONE)
                 .build();
     }
 
@@ -67,7 +69,6 @@ public class Member {
         this.password = newMember.newPassword() == null || newMember.newPassword().isBlank()
                 ? this.password : encoder.encode(newMember.newPassword());
         this.nickname = newMember.nickname();
-        this.birth = newMember.birth();
         this.email = newMember.email();
         this.phoneNumber = newMember.phoneNumber();
     }

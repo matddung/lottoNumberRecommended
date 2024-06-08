@@ -2,14 +2,32 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 import warningImage from './A_warning_sign_indicating_No_access_for_minors_un.png';
+import axios from 'axios';
 
 function Login({ login }) {
     const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        login();
+
+        const SignInRequest = {
+            account,
+            password
+        };
+
+        try {
+            // 서버에 회원가입 데이터 전송
+            const response = await axios.post('/signIn', SignInRequest);
+            if (response.status === 200) {
+                login();
+            } else {
+                setError('로그인에 실패했습니다. 다시 시도해주세요.');
+            }
+        } catch (error) {
+            setError('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
     };
 
     return (
@@ -44,6 +62,7 @@ function Login({ login }) {
                             required
                         />
                     </div>
+                    {error && <p className="error"><span className="error-icon">⚠️</span> {error}</p>}
                     <button type="submit" className="login-button">로그인</button>
                     <p>계정이 없으신가요? <Link to="/signup" className="signup-link">회원가입</Link></p>
                     <div className="social-login">
